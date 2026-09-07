@@ -255,9 +255,15 @@ nav{
 
 .intro-text{
     min-width:0;
+
+    position:relative;
 }
 
 .intro-text h1{
+    position:relative;
+
+    z-index:1;
+
     font-size:clamp(62px,9vw,132px);
 
     line-height:.82;
@@ -288,6 +294,56 @@ nav{
     font-size:16px;
 
     margin-top:35px;
+}
+
+/* =========================================================
+   HACKER SILHOUETTE — blended into the hero background,
+   sitting behind the outlined "BREAK." headline
+========================================================= */
+
+.hacker-figure{
+    position:absolute;
+
+    top:16%;
+    right:2%;
+
+    width:clamp(150px,18vw,230px);
+
+    z-index:-1;
+
+    opacity:.55;
+
+    pointer-events:none;
+
+    mix-blend-mode:screen;
+
+    filter:
+    saturate(1.25)
+    hue-rotate(28deg)
+    brightness(.92)
+    contrast(1.12);
+
+    -webkit-mask-image:
+    radial-gradient(
+    circle at 50% 42%,
+    rgba(0,0,0,.95) 28%,
+    transparent 72%
+    );
+
+    mask-image:
+    radial-gradient(
+    circle at 50% 42%,
+    rgba(0,0,0,.95) 28%,
+    transparent 72%
+    );
+}
+
+.hacker-figure img{
+    display:block;
+
+    width:100%;
+
+    height:auto;
 }
 
 /* =========================================================
@@ -333,7 +389,7 @@ nav{
 }
 
 .profile-frame:after{
-    content:"RASHIK // 001";
+    content:"Rashik Bhattarai";
 
     position:absolute;
 
@@ -344,7 +400,7 @@ nav{
 
     font:9px "DM Mono";
 
-    letter-spacing:.15em;
+    letter-spacing:.1em;
 
     color:var(--acid);
 
@@ -939,6 +995,175 @@ nav{
 }
 
 /* =========================================================
+   TRACK RECORD / GLOBAL RANK
+========================================================= */
+
+.rank-hero{
+    display:grid;
+
+    grid-template-columns:280px minmax(0,1fr);
+
+    align-items:center;
+
+    gap:50px;
+
+    padding-bottom:44px;
+
+    margin-bottom:34px;
+
+    border-bottom:1px solid var(--line);
+}
+
+.rank-figure{
+    border:1px solid rgba(184,255,99,.25);
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(184,255,99,.09),
+    rgba(101,246,194,.02)
+    );
+
+    padding:38px 24px;
+
+    text-align:center;
+
+    position:relative;
+}
+
+.rank-figure:before{
+    content:"INFOSEC LABS";
+
+    position:absolute;
+
+    top:14px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font:9px "DM Mono";
+
+    letter-spacing:.16em;
+
+    color:rgba(184,255,99,.55);
+}
+
+.rank-num{
+    display:block;
+
+    font-size:clamp(56px,7vw,86px);
+
+    font-weight:700;
+
+    letter-spacing:-.045em;
+
+    line-height:1;
+
+    color:var(--acid);
+
+    margin-top:16px;
+}
+
+.rank-tag{
+    display:block;
+
+    margin-top:12px;
+
+    font:11px "DM Mono";
+
+    letter-spacing:.12em;
+
+    color:var(--muted);
+}
+
+.rank-copy{
+    max-width:640px;
+
+    color:#a9bbb0;
+
+    line-height:1.75;
+
+    font-size:16px;
+}
+
+.rank-copy strong{
+    color:var(--ink);
+
+    font-weight:600;
+}
+
+.rank-copy p{
+    margin:0 0 16px;
+}
+
+.rank-copy p:last-child{
+    margin-bottom:0;
+}
+
+.stat-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:14px;
+
+    margin-bottom:24px;
+}
+
+.stat{
+    border:1px solid var(--line);
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,255,255,.035),
+    rgba(255,255,255,.012)
+    );
+
+    padding:20px 22px;
+}
+
+.stat-label{
+    font:10px "DM Mono";
+
+    letter-spacing:.12em;
+
+    color:var(--muted);
+}
+
+.stat-value{
+    font-size:30px;
+
+    font-weight:700;
+
+    letter-spacing:-.03em;
+
+    margin-top:10px;
+}
+
+.badges-row{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.badge-chip{
+    font:11px "DM Mono";
+
+    letter-spacing:.08em;
+
+    color:var(--acid);
+
+    border:1px solid rgba(184,255,99,.28);
+
+    padding:9px 15px;
+
+    border-radius:999px;
+}
+
+/* =========================================================
    OFFLINE MODE
 ========================================================= */
 
@@ -1297,6 +1522,15 @@ footer{
         gap:40px;
     }
 
+    .hacker-figure{
+        top:4%;
+        right:-2%;
+
+        width:clamp(100px,30vw,150px);
+
+        opacity:.4;
+    }
+
     .profile-frame{
         width:min(290px,80vw);
 
@@ -1365,6 +1599,22 @@ footer{
         min-height:390px;
     }
 
+    .rank-hero{
+        grid-template-columns:1fr;
+
+        gap:30px;
+    }
+
+    .rank-figure{
+        justify-self:start;
+
+        width:min(280px,80vw);
+    }
+
+    .stat-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
     footer{
         flex-direction:column;
 
@@ -1372,10 +1622,86 @@ footer{
     }
 }
 
+
+/* =========================================================
+   HACKER TYPING SCREEN BACKGROUND
+   Horizontal left-to-right scrolling rows, tiled across
+   the full viewport height so the effect covers the
+   entire background rather than one block of text.
+   ========================================================= */
+#hacker-bg{
+    position:fixed;
+    inset:0;
+    z-index:-4;
+    overflow:hidden;
+    pointer-events:none;
+    background:#020705;
+}
+#hacker-bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 50% 45%, transparent 0 35%, rgba(0,0,0,.48) 78%),
+      linear-gradient(rgba(0,0,0,.08),rgba(0,0,0,.38));
+    z-index:1;
+}
+.hacker-stream{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:1.2vh 0;
+    opacity:.8;
+}
+.h-row{
+    position:relative;
+    width:100%;
+    height:2.6vh;
+    min-height:20px;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.h-row-track{
+    display:inline-flex;
+    white-space:nowrap;
+    font:12px "DM Mono",monospace;
+    color:rgba(101,246,194,.4);
+    text-shadow:0 0 8px rgba(101,246,194,.18);
+    will-change:transform;
+    animation-name:marquee-ltr;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+}
+.h-row-track span{
+    padding-right:3.5em;
+}
+.h-row-track .prompt{
+    color:rgba(184,255,99,.65);
+}
+.h-row:nth-child(odd) .h-row-track{
+    color:rgba(184,255,99,.3);
+}
+@keyframes marquee-ltr{
+    from{ transform:translateX(-50%); }
+    to{ transform:translateX(0%); }
+}
+@media (prefers-reduced-motion: reduce){
+    .h-row-track{
+        animation:none;
+    }
+}
+
 </style>
 </head>
 
 <body>
+
+<div id="hacker-bg" aria-hidden="true">
+  <div class="hacker-stream" id="hackerStream"></div>
+</div>
+
 
 <canvas id="maskCanvas" aria-hidden="true"></canvas>
 
@@ -1397,6 +1723,8 @@ footer{
 <a href="#ops">OPS</a>
 
 <a href="#skills">SKILLS</a>
+
+<a href="#rank">RANK</a>
 
 <a href="#play">OFFLINE</a>
 
@@ -1427,6 +1755,16 @@ footer{
 <div class="intro">
 
 <div class="intro-text">
+
+<div class="hacker-figure">
+
+<img
+    src="hacker-silhouette.png"
+    alt=""
+    aria-hidden="true"
+>
+
+</div>
 
 <h1>
 
@@ -1470,10 +1808,6 @@ step ahead.
 >
 
 <div class="photo-grid"></div>
-
-<div class="photo-marker top">
-    ID://RB-001
-</div>
 
 <div class="photo-marker bottom">
     CYBERSECURITY
@@ -1782,6 +2116,160 @@ Linux · Windows · Networking · TCP/IP · DNS · HTTP/S
 
 </div>
 
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     TRACK RECORD
+===================================================== -->
+
+<section class="section" id="rank">
+
+<div class="section-head">
+
+<h2>
+TRACK<br>
+RECORD.
+</h2>
+
+<p>
+
+Rank, XP and streaks earned on InfoSec Labs — a live
+platform where investigations and threat hunts are
+scored in real time, not graded on paper.
+
+</p>
+
+</div>
+
+
+<div class="rank-hero">
+
+<div class="rank-figure">
+
+<span class="rank-num">
+#10
+</span>
+
+<span class="rank-tag">
+GLOBAL RANK
+</span>
+
+</div>
+
+
+<div class="rank-copy">
+
+<p>
+
+I achieved a <strong>global top 10 rank</strong> on
+InfoSec Labs, climbing to <strong>Level 228</strong> as
+a SOC Manager against a worldwide field of analysts.
+
+Getting there wasn't about grinding easy challenges —
+it was about staying sharp under a ticking clock,
+chasing indicators of compromise faster than the
+scoreboard could catch up, and refusing to let a
+routine investigation go unexamined.
+
+</p>
+
+<p>
+
+<strong>22,785 XP</strong> earned, one alert at a time.
+
+Every rank up came from a real scenario: a live triage,
+a timed hunt, a night shift that didn't let up.
+
+The badges below are less about collecting trophies
+and more a record of the habits that got me here —
+showing up early, staying late, and moving fast when
+it mattered.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="stat-grid">
+
+<div class="stat">
+
+<div class="stat-label">
+GLOBAL RANK
+</div>
+
+<div class="stat-value">
+#10
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+LEVEL
+</div>
+
+<div class="stat-value">
+228
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+TOTAL XP
+</div>
+
+<div class="stat-value">
+22,785
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+BADGES UNLOCKED
+</div>
+
+<div class="stat-value">
+8
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="badges-row">
+
+<span class="badge-chip">
+☀ EARLY BIRD
+</span>
+
+<span class="badge-chip">
+☾ NIGHT OWL
+</span>
+
+<span class="badge-chip">
+⚡ SPEED DEMON
+</span>
+
+<span class="badge-chip">
+🛡 SOC MANAGER
+</span>
 
 </div>
 
@@ -2140,6 +2628,119 @@ BUILD 2026.09
 
 
 <script>
+
+/* =========================================================
+   LIVE HACKER TERMINAL — HORIZONTAL LEFT-TO-RIGHT SCROLL
+   Builds a stack of rows that tile the full background
+   height, each one an infinite marquee of terminal-style
+   text moving left to right at a slightly different speed.
+   ========================================================= */
+(() => {
+    const stream = document.getElementById("hackerStream");
+    if (!stream) return;
+
+    const commands = [
+        "sudo ./soc-monitor --live",
+        "nmap -sV -Pn 10.0.0.0/24",
+        "tail -f /var/log/auth.log",
+        "grep -R \"failed\" /var/log/security/",
+        "whoami",
+        "uname -a",
+        "ss -tulpn",
+        "journalctl -f -u ssh",
+        "python3 threat_hunter.py --mode realtime",
+        "wazuh-agent --status",
+        "siem query --source=firewall --severity=high",
+        "tcpdump -i eth0 -nn",
+        "dig suspicious-domain.local",
+        "curl -I https://security.local",
+        "hashcat --status",
+        "mitre lookup --tactic=credential-access",
+        "ioc scan --network 10.0.0.0/24",
+        "incident triage --priority=P1",
+        "edr hunt --query \"powershell.exe\""
+    ];
+
+    const results = [
+        "[OK] connection established",
+        "[INFO] collecting telemetry...",
+        "[OK] 1842 events indexed",
+        "[WARN] suspicious authentication attempt",
+        "[OK] IOC enrichment complete",
+        "[INFO] behavioral analysis running...",
+        "[OK] no critical persistence found",
+        "[ALERT] anomalous outbound traffic detected",
+        "[OK] evidence preserved",
+        "[INFO] correlating events..."
+    ];
+
+    function randomIP(){
+        return `${10 + Math.floor(Math.random()*10)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+    }
+
+    // Build one long, varied line of terminal chatter.
+    function buildLineText(targetChars){
+        let out = "";
+        while(out.length < targetChars){
+            if(Math.random() < 0.55){
+                out += "root@cyber-lab:~# " + commands[(Math.random()*commands.length)|0] + "   ";
+            }else{
+                out += results[(Math.random()*results.length)|0] +
+                    (Math.random() < .5 ? "  src=" + randomIP() : "") + "   ";
+            }
+        }
+        return out;
+    }
+
+    function makeRow(){
+        const row = document.createElement("div");
+        row.className = "h-row";
+
+        const track = document.createElement("div");
+        track.className = "h-row-track";
+
+        // Roughly enough characters to cover a wide viewport once.
+        const targetChars = 90 + Math.floor(Math.random()*40);
+        const text = buildLineText(targetChars);
+
+        // Two copies back to back so the -50% -> 0% marquee loops seamlessly.
+        for(let i=0;i<2;i++){
+            const span = document.createElement("span");
+            span.textContent = text;
+            track.appendChild(span);
+        }
+
+        // Vary speed and direction start so rows don't all sync up visually.
+        const duration = 26 + Math.random()*30; // seconds
+        track.style.animationDuration = duration.toFixed(2) + "s";
+        track.style.animationDelay = "-" + (Math.random()*duration).toFixed(2) + "s";
+
+        row.appendChild(track);
+        return row;
+    }
+
+    function buildStream(){
+        stream.innerHTML = "";
+
+        const rowHeight = Math.max(20, window.innerHeight * 0.026);
+        const rowCount = Math.ceil(window.innerHeight / rowHeight) + 1;
+
+        const frag = document.createDocumentFragment();
+        for(let i=0;i<rowCount;i++){
+            frag.appendChild(makeRow());
+        }
+        stream.appendChild(frag);
+    }
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(buildStream, 250);
+    }, { passive:true });
+
+    buildStream();
+})();
+
 
 /* =========================================================
    PROCEDURAL TYPOGRAPHIC CYBER MASK
@@ -2566,67 +3167,67 @@ try{
 
 const response=
 await fetch(
-"https://api.web3forms.com/submit",
-{
-
-method:"POST",
-
-body:formData
-
-}
-);
-
-
-const data=
-await response.json();
-
-
-if(response.ok){
-
-alert(
-"Success! Your message has been sent to Rashik."
-);
-
-form.reset();
-
-}
-
-else{
-
-alert(
-"Error: "+
-(
-data.message ||
-"Unable to send message."
-)
-);
-
-}
-
-}
-
-catch(error){
-
-alert(
-"Something went wrong. Please try again."
-);
-
-}
-
-finally{
-
-submitBtn.textContent=
-originalText;
-
-submitBtn.disabled=false;
-
-}
-
-}
-
-);
-
-</script>
-
-</body>
+"https://api.web3forms.com/submit", 
+{ 
+ 
+method:"POST", 
+ 
+body:formData 
+ 
+} 
+); 
+ 
+ 
+const data= 
+await response.json(); 
+ 
+ 
+if(response.ok){ 
+ 
+alert( 
+"Success! Your message has been sent to Rashik." 
+); 
+ 
+form.reset(); 
+ 
+} 
+ 
+else{ 
+ 
+alert( 
+"Error: "+ 
+( 
+data.message || 
+"Unable to send message." 
+) 
+); 
+ 
+} 
+ 
+} 
+ 
+catch(error){ 
+ 
+alert( 
+"Something went wrong. Please try again." 
+); 
+ 
+} 
+ 
+finally{ 
+ 
+submitBtn.textContent= 
+originalText; 
+ 
+submitBtn.disabled=false; 
+ 
+} 
+ 
+} 
+ 
+); 
+ 
+</script> 
+ 
+</body> 
 </html>
