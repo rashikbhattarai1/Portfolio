@@ -1696,10 +1696,248 @@ footer{
     }
 }
 
+/* =========================================================
+   ENTRY GATE — click-to-breach splash screen
+========================================================= */
+
+html.gate-locked,
+html.gate-locked body{
+    overflow:hidden;
+    height:100%;
+}
+
+#gate{
+    position:fixed;
+    inset:0;
+    z-index:999;
+
+    display:grid;
+    place-items:center;
+
+    background:#020705;
+
+    cursor:pointer;
+
+    transition:
+    opacity .6s ease,
+    visibility .6s ease;
+}
+
+#gate:before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+    radial-gradient(
+        circle at 50% 42%,
+        rgba(184,255,99,.06),
+        transparent 55%
+    );
+
+    pointer-events:none;
+}
+
+#gate.gate-open{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.gate-inner{
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    padding:0 24px;
+
+    text-align:center;
+
+    transition:
+    transform .5s ease,
+    opacity .5s ease;
+}
+
+#gate.gate-open .gate-inner{
+    transform:scale(.94);
+    opacity:0;
+}
+
+.gate-frame{
+    position:relative;
+
+    width:132px;
+    height:132px;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid rgba(184,255,99,.4);
+
+    margin-bottom:26px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(184,255,99,.08),
+        rgba(101,246,194,.02)
+    );
+}
+
+.gate-frame:before,
+.gate-frame:after{
+    content:"";
+    position:absolute;
+
+    width:16px;
+    height:16px;
+
+    border:1px solid var(--acid);
+}
+
+.gate-frame:before{
+    top:-1px;
+    left:-1px;
+    border-right:0;
+    border-bottom:0;
+}
+
+.gate-frame:after{
+    bottom:-1px;
+    right:-1px;
+    border-left:0;
+    border-top:0;
+}
+
+.gate-icon{
+    width:64%;
+    height:64%;
+
+    object-fit:contain;
+
+    filter:
+    invert(88%)
+    sepia(45%)
+    saturate(900%)
+    hue-rotate(45deg)
+    brightness(1.05)
+    drop-shadow(0 0 14px rgba(184,255,99,.4));
+}
+
+.gate-brand{
+    font-weight:700;
+
+    font-size:22px;
+
+    letter-spacing:-.03em;
+
+    margin-bottom:10px;
+}
+
+.gate-brand span{
+    color:var(--acid);
+}
+
+.gate-status{
+    font-family:"DM Mono",monospace;
+
+    font-size:12px;
+
+    letter-spacing:.14em;
+
+    color:var(--muted);
+
+    margin-bottom:34px;
+}
+
+.gate-prompt{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    font-family:"DM Mono",monospace;
+
+    font-size:12px;
+
+    letter-spacing:.1em;
+
+    color:var(--acid);
+
+    border:1px solid rgba(184,255,99,.3);
+
+    padding:12px 20px;
+
+    border-radius:999px;
+
+    transition:
+    border-color .2s,
+    background .2s;
+}
+
+.gate-inner:hover .gate-prompt{
+    background:rgba(184,255,99,.06);
+    border-color:rgba(184,255,99,.6);
+}
+
+.gate-cursor{
+    display:inline-block;
+
+    width:7px;
+    height:14px;
+
+    background:var(--acid);
+
+    animation:gate-blink 1s step-end infinite;
+}
+
+@keyframes gate-blink{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0; }
+}
+
+@media(max-width:480px){
+    .gate-frame{
+        width:104px;
+        height:104px;
+    }
+
+    .gate-glyph{
+        font-size:26px;
+    }
+
+    .gate-brand{
+        font-size:18px;
+    }
+}
+
 </style>
 </head>
 
 <body>
+
+<div id="gate" role="button" tabindex="0" aria-label="Enter site">
+
+<div class="gate-inner">
+
+<div class="gate-frame">
+<img src="hacker-icon.png" alt="" class="gate-icon" aria-hidden="true">
+</div>
+
+<div class="gate-brand"><span>CYBER</span>//FIELD</div>
+
+<div class="gate-status">RASHIK BHATTARAI // ACCESS TERMINAL</div>
+
+<div class="gate-prompt">
+<span>CLICK TO BREACH</span>
+<span class="gate-cursor"></span>
+</div>
+
+</div>
+
+</div>
 
 <div id="hacker-bg" aria-hidden="true">
   <div class="hacker-stream" id="hackerStream"></div>
@@ -2631,6 +2869,38 @@ BUILD 2026.09
 
 
 <script>
+
+/* =========================================================
+   ENTRY GATE
+========================================================= */
+(() => {
+    const gate = document.getElementById("gate");
+    if (!gate) return;
+
+    document.documentElement.classList.add("gate-locked");
+
+    let opened = false;
+
+    function openGate(){
+        if (opened) return;
+        opened = true;
+
+        gate.classList.add("gate-open");
+        document.documentElement.classList.remove("gate-locked");
+
+        gate.addEventListener("transitionend", () => {
+            gate.remove();
+        }, { once: true });
+    }
+
+    gate.addEventListener("click", openGate);
+    gate.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " "){
+            e.preventDefault();
+            openGate();
+        }
+    });
+})();
 
 /* =========================================================
    LIVE HACKER TERMINAL — HORIZONTAL LEFT-TO-RIGHT SCROLL
